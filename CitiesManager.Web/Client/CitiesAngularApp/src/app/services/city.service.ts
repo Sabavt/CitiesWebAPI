@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { City } from "../models/city"
+import { City } from "../models/city";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +10,10 @@ export class CityService {
 
   cities: City[] = [];
 
-  constructor() {
-    this.cities = [
-      new City("200", "New York"),
-      new City("201", "London"),
-      new City("202", "Berlin"),
-      new City("203", "Hong kong")
-    ];
-
+  constructor(private httpClient: HttpClient) {  
   }
 
-  public getCities(): City[] {
-    return this.cities;
+  public getCities(): Observable<City[]> {
+    return this.httpClient.get<City[]>("https://localhost:7071/api/v1/cities");
   }
 }
