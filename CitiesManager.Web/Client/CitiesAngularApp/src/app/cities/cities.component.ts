@@ -15,7 +15,7 @@ export class CitiesComponent {
 
   }
 
-  onInit()
+  ngOnInit()
   {
     this.cities = this.citiesService.getCities();
   }
