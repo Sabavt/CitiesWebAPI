@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CitiesManager.Web.Models;
-using CitiesManager.Web.SqlDbContext;
+using CitiesManager.Core.Entities;
+using CitiesManager.Infrastructure.DatabaseContext;
 using Asp.Versioning;
 
 namespace CitiesManager.Web.Controllers.v1;

@@ -1,5 +1,5 @@
 using Asp.Versioning;
-using CitiesManager.Web.SqlDbContext; 
+using CitiesManager.Infrastructure.DatabaseContext; 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
