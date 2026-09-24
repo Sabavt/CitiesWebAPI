@@ -35,11 +35,27 @@ export class CitiesComponent {
     });
   }
 
-  get postCity_CityNameControll(): any {
+  get postCity_CityNameControl(): any {
     return this.postCityForm.controls['cityName'];
   }
 
   public postCitySubmitted() {
     this.isPostCityFormSubmitted = true;
+
+    this.citiesService.postCity(this.postCityForm.value).subscribe({
+      next: (response: City) => {
+        console.log(response);
+
+        this.loadCities();
+
+        this.postCityForm.reset();
+
+        this.isPostCityFormSubmitted = false;
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+      complete: () => { }
+    });
   }
 }

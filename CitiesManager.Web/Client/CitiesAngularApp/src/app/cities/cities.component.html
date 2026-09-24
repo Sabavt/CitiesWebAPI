@@ -34,7 +34,7 @@
           </div>
           
           <div class="flex-1">
-            <input type="text" class="form-input" formControlName="cityName"/>
+            <input type="text" class="form-input" formControlName="cityName" />
             <span class="text-red" *ngIf="(postCity_CityNameControl.touched || isPostCityFormSubmitted) && (postCity_CityNameControl.errors?.['required'])">City Name can't be blank</span>
           </div>
         </div>
