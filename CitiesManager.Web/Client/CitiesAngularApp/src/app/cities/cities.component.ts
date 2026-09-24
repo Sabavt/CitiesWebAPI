@@ -31,7 +31,7 @@ export class CitiesComponent {
     this.loadCities();
   }
 
-  get putCityFormArray() : FormArray {
+  get putCityFormArray(): FormArray {
     return this.putCityForm.get("cities") as FormArray;
   }
 
@@ -43,7 +43,7 @@ export class CitiesComponent {
         this.cities.forEach(city => {
           this.putCityFormArray.push(new FormGroup({
             cityID: new FormControl(city.cityID, [Validators.required]),
-            cityName: new FormControl({ value: city.cityName, disabled: true}, [Validators.required]),
+            cityName: new FormControl({ value: city.cityName, disabled: true }, [Validators.required]),
           }));
         });
       },
@@ -76,5 +76,13 @@ export class CitiesComponent {
       },
       complete: () => { }
     });
+  }
+
+  editClicked(city: City): void {
+    this.editCityID = city.cityID;
+  }
+
+  updateClicked(i : number): void {
+
   }
 }
