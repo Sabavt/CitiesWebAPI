@@ -10,7 +10,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class CitiesComponent {
   cities: City[] = [];
-  postCityForm: FormGroup
+  postCityForm: FormGroup;
+  isPostCityFormSubmitted: boolean = false;
 
   constructor(private citiesService: CityService) {
     this.postCityForm = new FormGroup({
@@ -39,6 +40,6 @@ export class CitiesComponent {
   }
 
   public postCitySubmitted() {
-
+    this.isPostCityFormSubmitted = true;
   }
 }
