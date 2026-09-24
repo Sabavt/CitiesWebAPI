@@ -28,7 +28,7 @@ export class CityService {
 
     headers = headers.append("Authorization", "Bearer token") 
 
-    return this.httpClient.post<City>(`${API_URL}v1/cities`, { headers: headers });
+    return this.httpClient.post<City>(`${API_URL}v1/cities`, city, { headers: headers });
   
   }
 }
