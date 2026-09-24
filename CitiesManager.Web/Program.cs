@@ -8,7 +8,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddCors(opt => opt.AddDefaultPolicy(bld => bld.WithOrigins(builder.Configuration.GetSection("AllowOrigins").Get<string[]>())));
+builder.Services.AddCors(opt =>
+{
+    opt.AddDefaultPolicy(bld =>
+    {
+        bld
+            .WithOrigins(builder.Configuration
+                .GetSection("AllowOrigins")
+                .Get<string[]>()
+            ).WithHeaders("Authorization", "origin", "accept", "content-type");
+    }); 
+});
+
 builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddEndpointsApiExplorer(); // Describes endpoints
