@@ -93,4 +93,17 @@ export class CitiesComponent {
       complete: () => {}
     });
   }
+
+  deleteClicked(city: City, i: number): void {
+    if (confirm("Do you want to delete city?")) {
+      this.citiesService.deleteCity(city.cityID).subscribe({
+        next: (response: string) => {
+          this.putCityFormArray.removeAt(i);
+          this.cities.splice(i, 1);
+        },
+        error: (error: any) => { },
+        complete: () => { },
+      })
+    }
+  }
 }
