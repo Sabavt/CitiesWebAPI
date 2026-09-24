@@ -1,6 +1,5 @@
 using Asp.Versioning;
-using CitiesManager.Web.SqlDbContext;
-using Microsoft.AspNetCore.Mvc;
+using CitiesManager.Web.SqlDbContext; 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
@@ -8,11 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers(opt
-    => { opt.Filters.Add(new ProducesAttribute("application/json"));
-        new ConsumesAttribute("application/json"); } 
-    ).AddXmlSerializerFormatters();
-
+builder.Services.AddControllers();
+builder.Services.AddCors(opt => opt.AddDefaultPolicy(bld => bld.WithOrigins("http://localhost:4200")));
 builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddEndpointsApiExplorer(); // Describes endpoints
@@ -62,6 +58,7 @@ app.UseSwaggerUI(opt => {
     opt.SwaggerEndpoint("/swagger/v2/swagger.json", "2.0");
 }); //Swagger testing UI
 
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();

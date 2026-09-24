@@ -17,17 +17,14 @@ public class CitiesController : CustomControllerBase
     }
 
     // GET: api/City
-    [HttpGet]
-    [Produces("application/xml")]
+    [HttpGet] 
     public async Task<ActionResult<IEnumerable<City>>> GetCity()
     {
         return await _context.Cities.ToListAsync();
     }
 
     // GET: api/City/5
-    [HttpGet("{cityid}")]
-
-    [Produces("application/xml")]
+    [HttpGet("{cityid}")] 
     public async Task<ActionResult<City>> GetCity(System.Guid cityid)
     {
         var city = await _context.Cities.FindAsync(cityid);
@@ -48,8 +45,7 @@ public class CitiesController : CustomControllerBase
     /// <param name="cityid">cityid to search</param>
     /// <param name="city">city model to search</param>
     /// <returns>Appropriate Error message or No Content if Successful</returns>
-    [HttpPut("{cityid}")]
-    [Produces("application/xml")]
+    [HttpPut("{cityid}")] 
     public async Task<IActionResult> PutCity(System.Guid? cityid, [Bind(nameof(city.CityName), nameof(city.CityID))]City city)
     {
         if (cityid != city.CityID)
