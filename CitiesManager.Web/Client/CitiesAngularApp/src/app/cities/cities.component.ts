@@ -101,7 +101,9 @@ export class CitiesComponent {
           this.putCityFormArray.removeAt(i);
           this.cities.splice(i, 1);
         },
-        error: (error: any) => { },
+        error: (error: any) => {
+          console.log(error);
+        },
         complete: () => { },
       })
     }
