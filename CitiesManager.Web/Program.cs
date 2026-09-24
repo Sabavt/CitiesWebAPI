@@ -15,7 +15,7 @@ builder.Services.AddCors(opt =>
         bld
             .WithOrigins(builder.Configuration
                 .GetSection("AllowOrigins")
-                .Get<string[]>()
+                .Get<string[]>()! 
             ).WithHeaders("Authorization", "origin", "accept", "content-type");
     }); 
 });
