@@ -82,7 +82,15 @@ export class CitiesComponent {
     this.editCityID = city.cityID;
   }
 
-  updateClicked(i : number): void {
+  updateClicked(i: number): void {
+    this.citiesService.putCity(this.putCityFormArray.controls[i].value).subscribe({
+      next: (response: string) => {
+        this.editCityID = null;
 
+        this.putCityFormArray.controls[i].reset(this.putCityFormArray.controls[i].value);
+      },
+      error: (error: any) => {},
+      complete: () => {}
+    });
   }
 }
