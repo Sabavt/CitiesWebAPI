@@ -31,4 +31,11 @@ export class CityService {
     return this.httpClient.post<City>(`${API_URL}v1/cities`, city, { headers: headers });
   
   }
+
+  public putCity(city: City): Observable<string> { 
+    let headers = new HttpHeaders(); 
+    headers = headers.append("Authorization", "Bearer token")
+
+    return this.httpClient.put<string>(`${API_URL}v1/cities`, city, { headers: headers }); 
+  }
 }

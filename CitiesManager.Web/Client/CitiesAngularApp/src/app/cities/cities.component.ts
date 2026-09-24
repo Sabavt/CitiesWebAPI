@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { City } from '../models/city';
 import { CityService } from '../services/city.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cities',
@@ -13,9 +13,17 @@ export class CitiesComponent {
   postCityForm: FormGroup;
   isPostCityFormSubmitted: boolean = false;
 
+  putCityForm: FormGroup;
+
+  editCityID: string | null = null;
+
   constructor(private citiesService: CityService) {
     this.postCityForm = new FormGroup({
       cityName: new FormControl(null, [Validators.required])
+    });
+
+    this.putCityForm = new FormGroup({
+      cities: new FormArray([])
     });
   }
 
@@ -23,10 +31,21 @@ export class CitiesComponent {
     this.loadCities();
   }
 
+  get putCityFormArray() : FormArray {
+    return this.putCityForm.get("cities") as FormArray;
+  }
+
   private loadCities() {
     this.citiesService.getCities().subscribe({
       next: (response: City[]) => {
         this.cities = response;
+
+        this.cities.forEach(city => {
+          this.putCityFormArray.push(new FormGroup({
+            cityID: new FormControl(city.cityID, [Validators.required]),
+            cityName: new FormControl({ value: city.cityName, disabled: true}, [Validators.required]),
+          }));
+        });
       },
       error: (error: any) => {
         console.log(error);
