@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddCors(opt => opt.AddDefaultPolicy(bld => bld.WithOrigins("http://localhost:4200")));
+builder.Services.AddCors(opt => opt.AddDefaultPolicy(bld => bld.WithOrigins(builder.Configuration.GetSection("AllowOrigins").Get<string[]>())));
 builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddEndpointsApiExplorer(); // Describes endpoints
@@ -25,12 +25,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "CitiesWebApi",
         Version = "2.0"
-    });
-
-    options.DocInclusionPredicate((documentName, apiDescription) =>
-    {
-        return apiDescription.GroupName == documentName;
-    });
+    }); 
 }); //Generates OpenAPI specification
 builder.Services
     .AddApiVersioning(options =>
