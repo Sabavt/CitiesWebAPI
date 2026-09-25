@@ -33,16 +33,31 @@ public class AccountController : CustomControllerBase
             PhoneNumber = userToRegister.Phone
         };
 
-        var result = await _userManager.CreateAsync(user);
+        var result = await _userManager.CreateAsync(user, userToRegister.Password);
 
         if (result.Succeeded)
         {
-            return user;
+            await _signInManager.SignInAsync(user, true);
+            return Ok(user);
         }
         else
         {
-            string? errors = ModelState.Values.SelectMany(e => e.Errors).Select(v => v.ErrorMessage).ToString();
+            string? errors = result.Errors.Select(v => v.Description).ToString();
             return Problem(errors); 
+        }
+    }
+
+    public async Task<IActionResult> EmailAlreadyExists(string email)
+    {
+        var result = await _userManager.FindByEmailAsync(email);
+
+        if(result == null)
+        {
+            return new JsonResult("true");
+        }
+        else
+        {
+            return new JsonResult("false");  
         }
     }
 }
