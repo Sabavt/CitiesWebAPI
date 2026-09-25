@@ -1,5 +1,7 @@
 using Asp.Versioning;
-using CitiesManager.Infrastructure.DatabaseContext; 
+using CitiesManager.Core.Identity;
+using CitiesManager.Infrastructure.DatabaseContext;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
@@ -19,6 +21,11 @@ builder.Services.AddCors(opt =>
             ).WithHeaders("Authorization", "origin", "accept", "content-type").AllowAnyMethod();
     }); 
 });
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders()
+    .AddUserStore<ApplicationUser>()
+    .AddRoleStore<ApplicationRole>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
