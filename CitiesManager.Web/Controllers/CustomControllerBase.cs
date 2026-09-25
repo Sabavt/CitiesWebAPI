@@ -4,4 +4,5 @@
 [ApiController]
 public class CustomControllerBase : ControllerBase
 {
+
 }
