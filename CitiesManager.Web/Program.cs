@@ -72,6 +72,7 @@ app.UseSwaggerUI(opt => {
 }); //Swagger testing UI
 
 app.UseCors();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
