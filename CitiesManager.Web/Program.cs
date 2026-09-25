@@ -2,6 +2,7 @@ using Asp.Versioning;
 using CitiesManager.Core.Identity;
 using CitiesManager.Infrastructure.DatabaseContext;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
@@ -24,8 +25,8 @@ builder.Services.AddCors(opt =>
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders()
-    .AddUserStore<ApplicationUser>()
-    .AddRoleStore<ApplicationRole>();
+    .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
+    .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
