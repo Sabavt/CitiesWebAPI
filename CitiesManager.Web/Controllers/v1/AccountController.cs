@@ -4,6 +4,7 @@ using CitiesManager.Core.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CitiesManager.Web.Controllers.v1;
 
@@ -58,6 +59,20 @@ public class AccountController : CustomControllerBase
         else
         {
             return new JsonResult("false");  
+        }
+    } 
+
+    public async Task<IActionResult> PhoneAlreadyExists(string phone)
+    {
+        bool result = await _userManager.Users.AnyAsync(p => p.PhoneNumber == phone);
+
+        if(result)
+        {
+            return Ok(false);  
+        }
+        else
+        {
+            return Ok(true);
         }
     }
 }
